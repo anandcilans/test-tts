@@ -1,1 +1,1 @@
-# test-tts
+/andrej-karpathy currently this frontend is connedcted with local hots , now i wants to keep my backend in local system , but expose its url publicaly , i mean i wants to access this backend over the internet , than i wants to run this frontend on vercel and use this publicaly exposed url of this backend (using which i can access the backend in my vercel)
