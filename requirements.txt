@@ -1,4 +1,0 @@
-sarvamai
-python-dotenv
-fastapi
-uvicorn

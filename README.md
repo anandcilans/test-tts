@@ -1,110 +1,36 @@
-# Vāṇī — Sarvam Bulbul v3 TTS
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Indian-language text-to-speech demo. A FastAPI backend calls [Sarvam](https://www.sarvam.ai/) Bulbul v3; a Next.js UI (Vāṇī) lets you type text, pick a language/voice, and play or download WAV audio.
+## Getting Started
 
-## Stack
-
-| Layer    | Tech                                      |
-| -------- | ----------------------------------------- |
-| Backend  | Python, FastAPI, Sarvam SDK, Uvicorn      |
-| Frontend | Next.js 16, React 19, Formik, Yup, Tailwind |
-
-## Setup
-
-### 1. Backend
+First, run the development server:
 
 ```bash
-python -m venv env
-# Windows: env\Scripts\activate
-# macOS/Linux: source env/bin/activate
-pip install -r requirements.txt
-```
-
-Create a `.env` in the repo root:
-
-```env
-SARVAM_API_KEY=your_sarvam_api_key
-CORS_ORIGINS=http://localhost:3000
-```
-
-`CORS_ORIGINS` is a comma-separated list of allowed frontend origins (default: `http://localhost:3000`).
-
-Run the API:
-
-```bash
-uvicorn main:app --reload --port 8000
-```
-
-Or with Docker:
-
-```bash
-docker build -t vani-tts .
-docker run --env-file .env -p 8000:8000 vani-tts
-```
-
-### 2. Frontend
-
-```bash
-cd frontend
-cp .env.example .env.local
-npm install
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-In `.env.local`, set the backend URL:
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```env
-NEXT_PUBLIC_TTS_URL=http://localhost:8000
-```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-Open [http://localhost:3000](http://localhost:3000).
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-If the backend is behind an ngrok tunnel, use that HTTPS URL instead (the UI already sends `ngrok-skip-browser-warning`).
+## Learn More
 
-## API
+To learn more about Next.js, take a look at the following resources:
 
-### `POST /tts`
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-Request body:
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-```json
-{
-  "text": "मेरे शहर में बहुत सी बारिश आती है।",
-  "target_language_code": "hi-IN",
-  "speaker": "shubh"
-}
-```
+## Deploy on Vercel
 
-| Field                  | Required | Notes                          |
-| ---------------------- | -------- | ------------------------------ |
-| `text`                 | yes      | 1–2500 characters              |
-| `target_language_code` | no       | default `hi-IN`                |
-| `speaker`              | no       | default `shubh`                |
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Response: raw `audio/wav` bytes.
-
-Quick check with the sample payload:
-
-```bash
-curl -X POST http://localhost:8000/tts \
-  -H "Content-Type: application/json" \
-  -d @body.json \
-  --output output.wav
-```
-
-## Project layout
-
-```text
-.
-├── main.py            # FastAPI /tts endpoint
-├── body.json          # Sample request
-├── requirements.txt
-├── Dockerfile
-├── .env               # SARVAM_API_KEY, CORS_ORIGINS (not committed)
-└── frontend/          # Next.js Vāṇī UI
-```
-
-## Notes
-
-- Speakers and languages in the UI are a curated subset; the Sarvam API may support more.
-- Keep `SARVAM_API_KEY` out of git; `.dockerignore` already excludes `.env`.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
