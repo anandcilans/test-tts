@@ -108,3 +108,4 @@ curl -X POST http://localhost:8000/tts \
 
 - Speakers and languages in the UI are a curated subset; the Sarvam API may support more.
 - Keep `SARVAM_API_KEY` out of git; `.dockerignore` already excludes `.env`.
+- Deploy frontend on Vercel + local Docker backend: see [`vercel-deploy.md`](vercel-deploy.md).
